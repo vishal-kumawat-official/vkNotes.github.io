@@ -84,7 +84,8 @@ search.addEventListener('input', function () {
 
     Array.from(noteCards).forEach(function (element) {
         let cardTxt = element.getElementsByTagName("p")[0].innerText;
-        if (cardTxt.includes(inputVal)) {
+        let tilteTxt = element.getElementsByTagName("h5")[0].innerText;
+        if (cardTxt.includes(inputVal) || tilteTxt.includes(inputVal)){
             element.style.display = "block";
         }
         else {
