@@ -7,6 +7,7 @@ let addbtn = document.getElementById('addbtn');
 addbtn.addEventListener(
     'click', function (e) {
         let addtxt = document.getElementById('addtxt');
+        let addtitle = document.getElementById('addtitle');
         let notes = localStorage.getItem('notes');
         if (notes == null) {
             notesObj = [];
@@ -14,10 +15,15 @@ addbtn.addEventListener(
         else {
             notesObj = JSON.parse(notes);
         }
-        notesObj.push(addtxt.value)
+        let myObj = {
+            tilte : addtitle.value,
+            text : addtxt.value
+        }
+        notesObj.push(myObj); //notes obj is array of object
         localStorage.setItem("notes", JSON.stringify(notesObj));
         addtxt.value = "";
-        console.log(notesObj);
+        addtitle.value = "";
+        // console.log(notesObj);
         showNotes();
     }
 );
@@ -36,8 +42,8 @@ function showNotes() {
         html = html + `
                 <div class="noteCard my-2 mx-2 card" style="width: 18rem;">
                     <div class="card-body">
-                        <h5 class="card-title">Note ${index + 1}</h5>
-                        <p class="card-text">${element}</p>
+                        <h5 class="card-title">${index+1}. ${element.tilte}</h5>
+                        <p class="card-text">${element.text}</p>
                         <button id="${index}" onclick="deleteNote(this.id)" class="btn btn-primary">Delete Note</button>
                     </div>
                 </div>
@@ -90,6 +96,7 @@ search.addEventListener('input', function () {
 );
 
 
+//delete all button 
 let del = document.getElementById('del_btn');
 del.addEventListener(
     'click',function(){
@@ -97,6 +104,8 @@ del.addEventListener(
         showNotes();
     }
 );
+
+
 
 
 
